@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Live index{% endblock %}
+
+{% block body %}
+    <h1>Live index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for live in lives %}
+            <tr>
+                <td>{{ live.id }}</td>
+                <td>{{ live.dateDebut ? live.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ live.dateFin ? live.dateFin|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('live_show', {'id': live.id}) }}">show</a>
+                    <a href="{{ path('live_edit', {'id': live.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('live_new') }}">Create new</a>
+{% endblock %}

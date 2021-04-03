@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Live{% endblock %}
+
+{% block body %}
+    <h1>Edit Live</h1>
+
+    {{ include('live/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('live_index') }}">back to list</a>
+
+    {{ include('live/_delete_form.html.twig') }}
+{% endblock %}
