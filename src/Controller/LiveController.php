@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Live;
 use App\Form\LiveType;
 use App\Repository\LiveRepository;
+use App\Service\LiveCreation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,8 +28,11 @@ class LiveController extends AbstractController
 
     /**
      * @Route("/new", name="live_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param LiveCreation $liveCreation
+     * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, LiveCreation $liveCreation): Response
     {
         $live = new Live();
         $form = $this->createForm(LiveType::class, $live);
@@ -36,6 +40,7 @@ class LiveController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $live = $liveCreation->addLive($live);
             $entityManager->persist($live);
             $entityManager->flush();
 

@@ -1,4 +1,10 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="center">
+    <button class="btnG">{{ button_label|default('Démarrer un nouveau live') }}</button>
+</div>
+
+
 {{ form_end(form) }}

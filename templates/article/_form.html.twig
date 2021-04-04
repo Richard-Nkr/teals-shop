@@ -1,4 +1,38 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<fieldset class="form">
+    <legend>Ajouter un article</legend>
+    <table class="form_table2">
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.type, 'Type de l\'article : ',  {'attr': {'class': 'form_label'} }) }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.type, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.prixAchat, 'Prix d\'achat : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.prixAchat, { 'attr': {'class': 'form_field2'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.stock, 'Stock : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.stock) }}
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<div class="center">
+    <button class="btnG">{{ button_label|default('Ajouter l\'article') }}</button>
+</div>
+
+
 {{ form_end(form) }}

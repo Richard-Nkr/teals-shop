@@ -17,6 +17,8 @@ class CommandeController extends AbstractController
 {
     /**
      * @Route("/", name="commande_index", methods={"GET"})
+     * @param CommandeRepository $commandeRepository
+     * @return Response
      */
     public function index(CommandeRepository $commandeRepository): Response
     {
@@ -27,6 +29,8 @@ class CommandeController extends AbstractController
 
     /**
      * @Route("/new", name="commande_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {

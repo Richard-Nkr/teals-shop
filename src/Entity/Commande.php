@@ -32,6 +32,12 @@ class Commande
      */
     private $promo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Live::class, inversedBy="commandes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $live;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +75,18 @@ class Commande
     public function setPromo(?float $promo): self
     {
         $this->promo = $promo;
+
+        return $this;
+    }
+
+    public function getLive(): ?Live
+    {
+        return $this->live;
+    }
+
+    public function setLive(?Live $live): self
+    {
+        $this->live = $live;
 
         return $this;
     }

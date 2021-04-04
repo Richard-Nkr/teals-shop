@@ -3,9 +3,9 @@
 {% block title %}Live index{% endblock %}
 
 {% block body %}
-    <h1>Live index</h1>
+    <h1>Tous les lives</h1>
 
-    <table class="table">
+    <table class="form_table2">
         <thead>
             <tr>
                 <th>Id</th>
@@ -32,6 +32,8 @@
         {% endfor %}
         </tbody>
     </table>
+<br>
 
-    <a href="{{ path('live_new') }}">Create new</a>
+        <a href="{{ path('article_new') }}"> <button class="btnG">Créer un live </button></a>
+
 {% endblock %}

@@ -1,0 +1,165 @@
+:after {
+    content: "";
+}
+
+
+nav {
+    float: left;
+    position: relative;
+    top: 0;
+    left: 0;
+    background: transparent;
+}
+
+nav ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+nav ul li {
+    position: relative;
+    width: 70px;
+    cursor: pointer;
+    background: crimson;
+    text-transform: uppercase;
+    transition:all .4s ease-out;
+}
+
+nav ul li:after {
+    position: absolute;
+    background: white;
+    color: crimson;
+    top:0;
+    left: 70px;
+    width: 70px; height: 100%;
+    opacity:.5;
+    transform: perspective(400px) rotateY(90deg);
+    transform-origin: 0 100%;
+    transition:all .4s ease-out;
+}
+
+nav ul a:nth-child(1) li:after {
+    content: "Home";
+    line-height: 88px;
+}
+nav ul a:nth-child(2) li:after {
+    content: "Article";
+    line-height: 88px;
+}
+nav ul a:nth-child(3) li:after {
+    content: "Live";
+    line-height: 85px;
+}
+nav ul a:nth-child(4) li:after {
+    content: "Client";
+    line-height: 70px;
+}
+
+nav ul a:nth-child(5) li:after {
+    content: "Recap";
+    line-height: 70px;
+}
+
+nav ul li:hover {
+    transform: translateX(-70px);
+}
+
+nav ul li:hover:after {
+    opacity: 1;
+    transform: perspective(400px) rotateY(0deg) scale(1) ;
+}
+
+
+nav ul li > div {
+    display: inline-block;
+    padding: 25px 0;
+    background: transparent;
+}
+
+nav ul li div { position: relative; }
+
+.roof {
+    width: 0;
+    height: 0;
+    top:2px;
+    border-style: solid;
+    border-width: 0 21px 15px 21px;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+.roof-edge {
+    position: absolute;
+    z-index: 20;
+    left: -17px;
+    top: 3px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 17px 12px 17px;
+    border-color: transparent transparent crimson transparent;
+}
+/*white triangle over red triangle*/
+.roof-edge:after {
+    position: absolute;
+    left: -14.5px;
+    top: 3px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 14.5px 10px 14.5px;
+    border-color: transparent transparent white transparent;
+}
+
+.front {
+    position: relative;
+    top: 3px;
+    width: 28.5px;
+    height: 20px;
+    margin: 0 auto;
+    background: white;
+}
+/*door*/
+.front:after {
+    position: absolute;
+    background: crimson;
+    width: 11px;
+    height: 13px;
+    bottom: 0;
+    left:9px;
+}
+
+.icon-plus {
+    background-color: #000;
+    border-radius:8px;
+    -webkit-border-radius:8px;
+    -moz-border-radius:8px;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top:0;
+    left:0;
+}
+.icon-plus:after {
+    background-color: #fff;
+    width: 8px;
+    height: 2px;
+    border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    position: absolute;
+    top:7px;
+    left: 4px;
+    content:"";
+}
+.icon-plus:before {
+    background-color: #fff;
+    width: 2px;
+    height: 8px;
+    border-radius: 1px;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    position: absolute;
+    top:4px;
+    left: 7px;
+    content:"";
+}

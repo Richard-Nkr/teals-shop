@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Service\ArticleCreation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,8 @@ class ArticleController extends AbstractController
 {
     /**
      * @Route("/", name="article_index", methods={"GET"})
+     * @param ArticleRepository $articleRepository
+     * @return Response
      */
     public function index(ArticleRepository $articleRepository): Response
     {
@@ -27,8 +30,11 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param ArticleCreation $articleCreation
+     * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ArticleCreation $articleCreation): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -36,10 +42,11 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $article = $articleCreation->addArticle($article);
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article_index');
+            return $this->redirectToRoute('article_new');
         }
 
         return $this->render('article/new.html.twig', [
