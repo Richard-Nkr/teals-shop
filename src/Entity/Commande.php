@@ -44,22 +44,17 @@ class Commande
      * @ORM\Column(type="integer")
      */
     private $quantite;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $panier;
 
     /**
-     * @ORM\OneToOne(targetEntity=Client::class, inversedBy="commande", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $client;
+    private $article;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="commande")
-     */
-    private $articles;
-
-    public function __construct()
-    {
-        $this->articles = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -126,44 +121,26 @@ class Commande
         return $this;
     }
 
-    public function getClient(): ?Client
+    public function getPanier(): ?int
     {
-        return $this->client;
+        return $this->panier;
     }
 
-    public function setClient(Client $client): self
+    public function setPanier(int $panier): self
     {
-        $this->client = $client;
+        $this->panier = $panier;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Article[]
-     */
-    public function getArticles(): Collection
+    public function getArticle(): ?int
     {
-        return $this->articles;
+        return $this->article;
     }
 
-    public function addArticle(Article $article): self
+    public function setArticle(int $article): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->setCommande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
-            if ($article->getCommande() === $this) {
-                $article->setCommande(null);
-            }
-        }
+        $this->article = $article;
 
         return $this;
     }

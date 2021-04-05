@@ -1,4 +1,46 @@
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<fieldset class="form">
+    <legend>Ajouter un article</legend>
+    <table class="form_table2">
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.name, 'Nom : ',  {'attr': {'class': 'form_label'} }) }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.name, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.firstname, 'Prénom : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.firstname, { 'attr': {'class': 'form_field2'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.nickname, 'Pseudo : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.nickname) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.phone, 'Téléphone : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.phone) }}
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<div class="center">
+    <button class="btnG">{{ button_label|default('Ajouter le client') }}</button>
+</div>
+
+
 {{ form_end(form) }}

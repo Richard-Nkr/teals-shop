@@ -42,6 +42,7 @@ class Client
      */
     private $commande;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -100,10 +101,15 @@ class Client
         return $this->commande;
     }
 
-    public function setCommande(Commande $commande): self
+    public function setCommande(?Commande $commande): self
     {
+        // unset the owning side of the relation if necessary
+        if ($commande === null && $this->commande !== null) {
+            $this->commande->setClient(null);
+        }
+
         // set the owning side of the relation if necessary
-        if ($commande->getClient() !== $this) {
+        if ($commande !== null && $commande->getClient() !== $this) {
             $commande->setClient($this);
         }
 

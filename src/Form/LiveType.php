@@ -14,7 +14,8 @@ class LiveType extends AbstractType
     {
         $builder
             ->add('dateDebut', HiddenType::class, ['data' => ''])
-            ->add('dateFin', HiddenType::class, ['data' => '']);
+            ->add('dateFin', HiddenType::class, ['data' => ''])
+            ->add('day');
 
     }
 

@@ -35,6 +35,15 @@ class LiveRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOneById($id): ?Live
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Live

@@ -1,7 +1,19 @@
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {{ form_start(form) }}
-
+<fieldset class="form">
+    <legend>Ajouter un live</legend>
+    <table class="form_table2">
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.day, 'Jour du live : ',  {'attr': {'class': 'form_label'} }) }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.day, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+    </table>
+</fieldset>
 <div class="center">
     <button class="btnG">{{ button_label|default('Démarrer un nouveau live') }}</button>
 </div>

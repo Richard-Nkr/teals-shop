@@ -34,6 +34,11 @@ class Live
      */
     private $commandes;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $day;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -94,6 +99,18 @@ class Live
                 $commande->setLive(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDay(): ?string
+    {
+        return $this->day;
+    }
+
+    public function setDay(string $day): self
+    {
+        $this->day = $day;
 
         return $this;
     }

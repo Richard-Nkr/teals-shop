@@ -18,6 +18,8 @@ class LiveController extends AbstractController
 {
     /**
      * @Route("/", name="live_index", methods={"GET"})
+     * @param LiveRepository $liveRepository
+     * @return Response
      */
     public function index(LiveRepository $liveRepository): Response
     {

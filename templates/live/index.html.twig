@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Jour</th>
                 <th>DateDebut</th>
                 <th>DateFin</th>
                 <th>actions</th>
@@ -18,10 +19,11 @@
         {% for live in lives %}
             <tr>
                 <td>{{ live.id }}</td>
+                <td>{{ live.day }}</td>
                 <td>{{ live.dateDebut ? live.dateDebut|date('Y-m-d') : '' }}</td>
                 <td>{{ live.dateFin ? live.dateFin|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('live_show', {'id': live.id}) }}">show</a>
+                    <a href="{{ path('commande_new', {'id': live.id}) }}">show</a>
                     <a href="{{ path('live_edit', {'id': live.id}) }}">edit</a>
                 </td>
             </tr>
@@ -34,6 +36,6 @@
     </table>
 <br>
 
-        <a href="{{ path('article_new') }}"> <button class="btnG">Créer un live </button></a>
+        <a href="{{ path('live_new') }}"> <button class="btnG">Créer un live </button></a>
 
 {% endblock %}

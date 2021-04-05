@@ -1,30 +1,35 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Commande index{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Commande index</h1>
+    <h1>Commandes</h1>
 
-    <table class="table">
+    <table class="form_table2">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Promo</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Panier</th>
+            <th>Article</th>
+            <th>Color</th>
+            <th>Size</th>
+            <th>Promo</th>
+            <th>Prix</th>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody>
         {% for commande in commandes %}
             <tr>
-                <td>{{ commande.id }}</td>
+                <td>{{ commande.panier }}</td>
+                <td>{{ commande.article }}</td>
                 <td>{{ commande.color }}</td>
                 <td>{{ commande.size }}</td>
                 <td>{{ commande.promo }}</td>
+                {% for article in articles %}
+                    {% if article.id == commande.article %}
+                        <td>{{ article.prixVente }}</td>
+                    {% endif %}
+                {% endfor %}
                 <td>
-                    <a href="{{ path('commande_show', {'id': commande.id}) }}">show</a>
-                    <a href="{{ path('commande_edit', {'id': commande.id}) }}">edit</a>
+                    <a href="{{ path('commande_delete', {'id': commande.id}) }}">Supprimer</a>
                 </td>
             </tr>
         {% else %}
@@ -34,6 +39,6 @@
         {% endfor %}
         </tbody>
     </table>
+    <br>
 
-    <a href="{{ path('commande_new') }}">Create new</a>
 {% endblock %}

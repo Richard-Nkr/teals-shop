@@ -6,29 +6,53 @@
     <table class="form_table2">
         <tr>
             <td class="td_label">
-                {{ form_label(form., 'Type de l\'article : ',  {'attr': {'class': 'form_label'} }) }}
+                {{ form_label(form.panier, 'Panier : ',  {'attr': {'class': 'form_label'} }) }}
             </td>
             <td class="td_field2">
-                {{ form_widget(form.type, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+                {{ form_widget(form.panier, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td class="td_label">
-                {{ form_label(form.prixAchat, 'Prix d\'achat : ') }}
+                {{ form_label(form.article, 'Article : ',  {'attr': {'class': 'form_label'} }) }}
             </td>
             <td class="td_field2">
-                {{ form_widget(form.prixAchat, { 'attr': {'class': 'form_field2'} }) }}
+                {{ form_widget(form.article, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
             </td>
         </tr>
         <tr>
             <td class="td_label">
-                {{ form_label(form.stock, 'Stock : ') }}
+                {{ form_label(form.color, 'Couleur: ',  {'attr': {'class': 'form_label'} }) }}
             </td>
             <td class="td_field2">
-                {{ form_widget(form.stock) }}
+                {{ form_widget(form.color, { 'attr': {'class': 'form_field', 'autocomplete': 'off', 'outline': 'none'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.size, 'Taille : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.size, { 'attr': {'class': 'form_field2'} }) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.quantite, 'Quantité : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.quantite) }}
+            </td>
+        </tr>
+        <tr>
+            <td class="td_label">
+                {{ form_label(form.promo, 'Promo : ') }}
+            </td>
+            <td class="td_field2">
+                {{ form_widget(form.promo) }}
             </td>
         </tr>
     </table>
 </fieldset>
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btnG">{{ button_label|default('AJouter') }}</button>
 {{ form_end(form) }}

@@ -43,7 +43,7 @@ class ClientController extends AbstractController
             $entityManager->persist($client);
             $entityManager->flush();
 
-            return $this->redirectToRoute('client_index');
+            return $this->redirectToRoute('client_new');
         }
 
         return $this->render('client/new.html.twig', [

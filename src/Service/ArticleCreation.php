@@ -6,7 +6,7 @@ use App\Entity\Article;
 
 class ArticleCreation
 {
-    public function addArticle(Article $article): Article
+    public function addArticleBDD(Article $article): Article
     {
         $prix = $article->getPrixAchat();
         $article->setPrixVente($prix*2+2);
