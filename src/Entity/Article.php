@@ -42,6 +42,12 @@ class Article
      */
     private $qteVendu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commande;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +109,18 @@ class Article
     public function setQteVendu(?int $qteVendu): self
     {
         $this->qteVendu = $qteVendu;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }
