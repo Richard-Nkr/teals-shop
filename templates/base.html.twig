@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ asset('images/teals_logo.png') }}" rel="shortcut icon">
+    <title>{% block title %}{% endblock %}</title>
 
-        {% block stylesheets %}
-            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/general.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
-            {{ encore_entry_link_tags('app') }}
-            <link href="{{ asset('/build/app.scss') }}" rel="stylesheet">
-        {% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/general.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+        {{ encore_entry_link_tags('app') }}
+        <link href="{{ asset('/build/app.scss') }}" rel="stylesheet">
+    {% endblock %}
 
-        {% block javascripts %}
-            <script src="https://kit.fontawesome.com/b51ada4409.js" crossorigin="anonymous"></script>
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-    {% include 'fragments/navbar.html.twig' %}
-        {% block body %}{% endblock %}
-    </body>
+    {% block javascripts %}
+        <script src="https://kit.fontawesome.com/b51ada4409.js" crossorigin="anonymous"></script>
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+{% include 'fragments/navbar.html.twig' %}
+{% block body %}{% endblock %}
+</body>
 
 </html>

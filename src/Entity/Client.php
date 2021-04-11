@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,9 +40,14 @@ class Client
     private $phone;
 
     /**
-     * @ORM\OneToOne(targetEntity=Commande::class, mappedBy="client", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="client")
      */
-    private $commande;
+    private $commandes;
+
+    public function __construct()
+    {
+        $this->commandes = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -96,25 +103,34 @@ class Client
         return $this;
     }
 
-    public function getCommande(): ?Commande
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
     {
-        return $this->commande;
+        return $this->commandes;
     }
 
-    public function setCommande(?Commande $commande): self
+    public function addCommande(Commande $commande): self
     {
-        // unset the owning side of the relation if necessary
-        if ($commande === null && $this->commande !== null) {
-            $this->commande->setClient(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($commande !== null && $commande->getClient() !== $this) {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
             $commande->setClient($this);
         }
 
-        $this->commande = $commande;
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getClient() === $this) {
+                $commande->setClient(null);
+            }
+        }
 
         return $this;
     }
+
 }

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Tous les lives</h1>
 
-    <table class="form_table2">
+    <table class="form_table2bis">
         <thead>
             <tr>
                 <th>Id</th>
@@ -20,11 +20,11 @@
             <tr>
                 <td>{{ live.id }}</td>
                 <td>{{ live.day }}</td>
-                <td>{{ live.dateDebut ? live.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ live.dateDebut ? live.dateDebut|date('d / m / Y') : '' }}</td>
                 <td>{{ live.dateFin ? live.dateFin|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('commande_new', {'id': live.id}) }}">show</a>
-                    <a href="{{ path('live_edit', {'id': live.id}) }}">edit</a>
+                    <a href="{{ path('commande_new', {'id': live.id}) }}"><button class="btnR2">Voir</button></a>
+                    <a href="{{ path('recap_show_clients', {'id': live.id}) }}"><button class="btnB2">Récap</button></a>
                 </td>
             </tr>
         {% else %}

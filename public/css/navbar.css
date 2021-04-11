@@ -2,7 +2,11 @@
     content: "";
 }
 
-
+@media (min-width: 480px) ans (max-width: 780px) {
+    nav {
+        float: none;
+    }
+}
 nav {
     float: left;
     position: relative;
@@ -163,3 +167,4 @@ nav ul li div { position: relative; }
     left: 7px;
     content:"";
 }
+

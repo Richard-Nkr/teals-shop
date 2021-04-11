@@ -1,37 +1,51 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Commandes</h1>
+    <h1 style="margin-right: 40%">Commandes</h1>
 
-    <table class="form_table2">
+    <table class="form_table2bis">
         <thead>
         <tr>
+            <th>Id</th>
             <th>Panier</th>
+            <th>Client</th>
             <th>Article</th>
-            <th>Color</th>
-            <th>Size</th>
-            <th>Promo</th>
+            <th>Type</th>
             <th>Prix</th>
             <th>Action</th>
+            <th>Couleur</th>
+            <th>Quantité</th>
         </tr>
         </thead>
         <tbody>
         {% for commande in commandes %}
-            <tr>
-                <td>{{ commande.panier }}</td>
-                <td>{{ commande.article }}</td>
-                <td>{{ commande.color }}</td>
-                <td>{{ commande.size }}</td>
-                <td>{{ commande.promo }}</td>
-                {% for article in articles %}
-                    {% if article.id == commande.article %}
-                        <td>{{ article.prixVente }}</td>
+            {% if commande.live.id == id %}
+                <tr>
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.panier }}</td>
+                    {% if commande.client != null %}
+                        <td>{{ commande.client.nickname }}</td>
+                    {% else %}
+                        <td>INCONNU</td>
                     {% endif %}
-                {% endfor %}
-                <td>
-                    <a href="{{ path('commande_delete', {'id': commande.id}) }}">Supprimer</a>
-                </td>
-            </tr>
+                    <td>{{ commande.article }}</td>
+                    {% for article in articles %}
+                        {% if article.id == commande.article %}
+                            <td>{{ article.type }}</td>
+                            <td>{{ article.prixVente }}</td>
+                            <td>
+                                <form method="post" action="{{ path('commande_delete', {'id': commande.id}) }}"
+                                      onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commande.id) }}">
+                                    <button class="btnR2">Delete</button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                    <td>{{ commande.color }}</td>
+                    <td>{{ commande.quantite }}</td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>

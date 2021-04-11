@@ -32,7 +32,7 @@ class Commande
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $promo;
+    private $promo = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity=Live::class, inversedBy="commandes")
@@ -43,7 +43,7 @@ class Commande
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantite;
+    private $quantite = 1;
     
     /**
      * @ORM\Column(type="integer")
@@ -54,6 +54,27 @@ class Commande
      * @ORM\Column(type="integer")
      */
     private $article;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="commandes")
+     */
+    private $client;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $prix_total;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPaid;
+
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -144,4 +165,41 @@ class Commande
 
         return $this;
     }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getPrixTotal(): ?float
+    {
+        return $this->prix_total;
+    }
+
+    public function setPrixTotal(float $prix_total): self
+    {
+        $this->prix_total = $prix_total;
+
+        return $this;
+    }
+
+    public function getIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(?bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
 }

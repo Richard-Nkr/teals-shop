@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RecapController!{% endblock %}
+
+{% block body %}
+    <br><br>
+    <h1>Recap Clients</h1>
+
+    <table class="form_table3bis">
+        <thead>
+        <tr>
+            <th>Id Client</th>
+            <th>Client</th>
+            <th>Action</th>
+            <th>Payé</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for commande in clients %}
+            <tr>
+                <td>{{ commande.client.id }}</td>
+                <td>{{ commande.client.nickname }}</td>
+                <td>
+                    <a href="{{ path('recap_show', {'client' : commande.client.id, 'live' : live.id}) }}">
+                        <button class="btnB2">Récap</button>
+                    </a>
+
+                    <a href="{{ path('commande_is_paid', {'client' : commande.client.id, 'live' : live.id}) }}">
+                        <button class="btnG3">Payé</button>
+                    </a>
+                </td>
+                {% if commande.isPaid != true %}
+                   <td>NON</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

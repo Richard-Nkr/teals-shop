@@ -5,6 +5,14 @@
     <legend>Ajouter une commande</legend>
     <table class="form_table2">
         <tr>
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+            {% endif %}
+        </tr>
+
+        <tr>
             <td class="td_label">
                 {{ form_label(form.panier, 'Panier : ',  {'attr': {'class': 'form_label'} }) }}
             </td>
@@ -54,5 +62,5 @@
         </tr>
     </table>
 </fieldset>
-    <button class="btnG">{{ button_label|default('AJouter') }}</button>
+    <button class="btnG">{{ button_label|default('Ajouter') }}</button>
 {{ form_end(form) }}

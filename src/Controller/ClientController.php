@@ -30,9 +30,10 @@ class ClientController extends AbstractController
     /**
      * @Route("/new", name="client_new", methods={"GET","POST"})
      * @param Request $request
+     * @param ClientRepository $clientRepository
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ClientRepository $clientRepository): Response
     {
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
@@ -43,11 +44,15 @@ class ClientController extends AbstractController
             $entityManager->persist($client);
             $entityManager->flush();
 
-            return $this->redirectToRoute('client_new');
+            return $this->redirectToRoute('client_new',[
+                'clients' => $clientRepository->findAll(),
+                'client' => $client,
+            ]);
         }
 
         return $this->render('client/new.html.twig', [
             'client' => $client,
+            'clients' => $clientRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -64,6 +69,9 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="client_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Client $client
+     * @return Response
      */
     public function edit(Request $request, Client $client): Response
     {
@@ -84,6 +92,9 @@ class ClientController extends AbstractController
 
     /**
      * @Route("/{id}", name="client_delete", methods={"POST"})
+     * @param Request $request
+     * @param Client $client
+     * @return Response
      */
     public function delete(Request $request, Client $client): Response
     {
@@ -93,6 +104,6 @@ class ClientController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('client_index');
+        return $this->redirectToRoute('client_new');
     }
 }

@@ -1,11 +1,9 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Article index{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
-
-    <table class="table">
+    <h1>Tous les articles</h1>
+    <br>
+    <table class="form_table2bis">
         <thead>
             <tr>
                 <th>Id</th>
@@ -13,7 +11,7 @@
                 <th>PrixAchat</th>
                 <th>PrixVente</th>
                 <th>Stock</th>
-                <th>QteVendu</th>
+                <th>Quantité vendu</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,8 +25,11 @@
                 <td>{{ article.stock }}</td>
                 <td>{{ article.qteVendu }}</td>
                 <td>
-                    <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                    <a href="{{ path('article_edit', {'id': article.id}) }}"> <button class="btnR2">edit</button></a>
+                    <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                        <button class="btnR2">Delete</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
@@ -38,6 +39,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('article_new') }}">Create new</a>
 {% endblock %}

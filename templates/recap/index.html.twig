@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RecapController!{% endblock %}
+
+{% block body %}
+    <br><br>
+    {% set sum = 0 %}
+    {% set numCommande = 0 %}
+    <ul class="list_recap">
+        <li>
+            <p>Coucou {{ client.firstname | capitalize }} ! Alors pour ce live tu as pris : </p>
+        </li>
+
+        {% for commande in client.getCommandes %}
+            {% if commande.live == live %}
+            {% for article in articles %}
+                {% if article.id == commande.article %}
+                    {% set sum = sum + commande.prixTotal %}
+                    <li>
+                        <input class="checkbox_style" type="checkbox">
+                        - {{ commande.quantite }} {{ article.type }} {{ commande.color }}
+                        {% if commande.size != null %}
+                            taille {{ commande.size }}
+                        {% endif %}
+                        à {{ commande.prixTotal }}€
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+        {% endfor %}
+        <br>
+        <li>
+            <p>TOTAL = {{ sum }}€</p>
+            <p>Avec colissimo, il y a 8€ de frais donc le total sera de {{ sum + 8 }}€</p>
+            <p>Avec mondial relay, il y a 4,50€ le total sera de {{ sum + 4.50 }}€</p>
+            <p> (Frais de port mondial relais offert à partir de 50€ d'achat)</p>
+        </li>
+    </ul>
+{% endblock %}

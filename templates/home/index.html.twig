@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Teal's Shop{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 <h1>Bienvenue sur Teal's Shop</h1>
-<div id="root"></div>
+    {{ include('home/dashboard.twig') }}
 
 {% endblock %}

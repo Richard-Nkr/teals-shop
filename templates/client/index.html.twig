@@ -1,19 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Client index{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-    <h1>Client index</h1>
 
-    <table class="table">
+    <h1>Liste des clients</h1>
+    <br>
+    <table class="form_table2bis">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Firstname</th>
-                <th>Nickname</th>
-                <th>Phone</th>
-                <th>actions</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Pseudo</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,8 +24,8 @@
                 <td>{{ client.nickname }}</td>
                 <td>{{ client.phone }}</td>
                 <td>
-                    <a href="{{ path('client_show', {'id': client.id}) }}">show</a>
-                    <a href="{{ path('client_edit', {'id': client.id}) }}">edit</a>
+                    <a href="{{ path('client_show', {'id': client.id}) }}" class="action_btn">show</a>
+                    <a href="{{ path('client_edit', {'id': client.id}) }}" class="action_btn">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -36,6 +35,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('client_new') }}">Create new</a>
 {% endblock %}

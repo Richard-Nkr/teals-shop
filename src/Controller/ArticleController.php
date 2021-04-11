@@ -32,9 +32,10 @@ class ArticleController extends AbstractController
      * @Route("/new", name="article_new", methods={"GET","POST"})
      * @param Request $request
      * @param ArticleCreation $articleCreation
+     * @param ArticleRepository $articleRepository
      * @return Response
      */
-    public function new(Request $request, ArticleCreation $articleCreation): Response
+    public function new(Request $request, ArticleCreation $articleCreation, ArticleRepository $articleRepository): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -46,11 +47,13 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article_new');
+            return $this->redirectToRoute('article_new', [
+                'articles' => $articleRepository->findAll(),
+                ]);
         }
 
         return $this->render('article/new.html.twig', [
-            'article' => $article,
+            'articles' => $articleRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -87,6 +90,9 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}", name="article_delete", methods={"POST"})
+     * @param Request $request
+     * @param Article $article
+     * @return Response
      */
     public function delete(Request $request, Article $article): Response
     {
@@ -96,6 +102,6 @@ class ArticleController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('article_index');
+        return $this->redirectToRoute('article_new');
     }
 }

@@ -1,0 +1,57 @@
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h1>DashBoard</h1>
+
+
+    {% set nb_articles = 0 %}
+    {% set CA = 0 %}
+    {% set numlive = null %}
+
+    {% for live in lives %}
+
+        {% set numlive = live %}
+        {% for commande in commandes %}
+            {% if commande.live == live %}
+
+                {% set nb_articles = nb_articles + commande.quantite %}
+                {% set CA = CA + commande.prixTotal %}
+            {% endif %}
+        {% endfor %}
+
+        {% set newArray = [] %}
+
+        <table class="dash_table">
+            <tr>
+                <th>Live</th>
+                <th>Nombre articles</th>
+                <th>Chiffre d'affaire</th>
+                <th>Qui n'a pas payé ?</th>
+            </tr>
+            <tr>
+                <td>{{ numlive.day }} {{ numlive.dateDebut|date('d / m / Y') }}</td>
+                <td>{{ nb_articles }}</td>
+                <td>{{ CA }}€</td>
+                <td>
+                    <ul>
+                        {% for commande in commandes %}
+                            {% if commande.live == live %}
+                                {% if commande.isPaid == false or commande.isPaid == null %}
+                                    {% if commande.client.nickname not in newArray %}
+                                        <li>{{ commande.client.nickname }}</li>
+                                        {% set newArray = newArray|merge([commande.client.nickname]) %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+            </tr>
+        </table>
+        <br><br>
+        {% set nb_articles = 0 %}
+        {% set CA = 0 %}
+        {% set numlive = null %}
+    {% endfor %}
+
+
+{% endblock %}

@@ -47,6 +47,58 @@ fieldset.form legend {
 
 }
 
+.form_table2bis {
+    vertical-align: center;
+    float: left;
+    margin-left: 5%;
+    margin-bottom: 10%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 40%;
+    border: 2px solid #dddddd;
+}
+.form_table2bis th, td {
+    text-align: left;
+    padding: 16px;
+
+}
+
+.form_table2bis th{
+    background-color: #f8f8f8;
+}
+
+.form_table2bis tr:nth-child(2n) {
+    background-color: #BDBDBD;
+}
+.form_table2bis tr:nth-child(2n+1) {
+    background-color: #949494;
+}
+.form_table3bis {
+    vertical-align: center;
+    float: right;
+    margin-right: 10%;
+    margin-bottom: 10%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 30%;
+    border: 2px solid #dddddd;
+}
+.form_table3bis th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+.form_table3bis th{
+    background-color: #f8f8f8;
+}
+
+.form_table3bis tr:nth-child(2n) {
+    background-color: #BDBDBD;
+}
+.form_table3bis tr:nth-child(2n+1) {
+    background-color: #949494;
+}
+
 .td_field2 {
     vertical-align: text-top;
     font-size: 16px;
@@ -67,3 +119,47 @@ fieldset.form legend {
     margin: 0 auto;
     width: 100px;
 }
+
+.action_btn{
+   color: black;
+    cursor: pointer;
+}
+
+.list_recap{
+    margin: 0 auto;
+    width: 60%;
+    background-color: white;
+    padding: 10px;
+    list-style-type: none;
+    text-align: left;
+}
+
+.list-group-item{
+    border: none;
+}
+
+.checkbox_style{
+    margin-right: 5px;
+}
+
+.dash_table{
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: top;
+}
+
+.dash_table {
+    padding: 5px;
+    margin-left: 10%;
+    text-align: left;
+    width: 60%;
+}
+
+.dash_table th{
+    background-color: #BDBDBD;
+}
+
+.dash_table td{
+    background-color: #fdfdfd;
+}
+
