@@ -60,7 +60,7 @@ nav ul a:nth-child(4) li:after {
 }
 
 nav ul a:nth-child(5) li:after {
-    content: "Recap";
+    content: "Borderaux";
     line-height: 70px;
 }
 

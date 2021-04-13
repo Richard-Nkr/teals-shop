@@ -2,10 +2,12 @@
 
 {% block body %}
     <h1>DashBoard</h1>
-
+    {% set total_CA = 0 %}
+    {% set total_impayee = 0 %}
 
     {% set nb_articles = 0 %}
     {% set CA = 0 %}
+    {% set sum_impayee = 0 %}
     {% set numlive = null %}
 
     {% for live in lives %}
@@ -27,6 +29,8 @@
                 <th>Nombre articles</th>
                 <th>Chiffre d'affaire</th>
                 <th>Qui n'a pas payé ?</th>
+                <th>Somme impayée</th>
+                <th>A envoyer</th>
             </tr>
             <tr>
                 <td>{{ numlive.day }} {{ numlive.dateDebut|date('d / m / Y') }}</td>
@@ -37,6 +41,7 @@
                         {% for commande in commandes %}
                             {% if commande.live == live %}
                                 {% if commande.isPaid == false or commande.isPaid == null %}
+                                    {% set sum_impayee = sum_impayee + commande.prixTotal %}
                                     {% if commande.client.nickname not in newArray %}
                                         <li>{{ commande.client.nickname }}</li>
                                         {% set newArray = newArray|merge([commande.client.nickname]) %}
@@ -45,13 +50,50 @@
                             {% endif %}
                         {% endfor %}
                     </ul>
+                </td>
+                <td>
+                    {{ sum_impayee }}€
+                    {% set total_impayee = total_impayee + sum_impayee %}
+                    {% set sum_impayee = 0 %}
+                </td>
+                <td>
+                    <ul>
+                        {% for commande in commandes %}
+                            {% if commande.live == live %}
+                                {% if commande.toSend == true %}
+                                    {% if commande.sent == true %}
+                                    {% else %}
+                                        {% if commande.client.nickname not in newArray %}
+                                            <li>{{ commande.client.nickname }}</li>
+                                            {% set newArray = newArray|merge([commande.client.nickname]) %}
+                                        {% endif %}
+                                    {% endif %}
+
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </td>
             </tr>
+
         </table>
         <br><br>
         {% set nb_articles = 0 %}
+        {% set total_CA = total_CA + CA %}
         {% set CA = 0 %}
         {% set numlive = null %}
     {% endfor %}
+
+    <table class="dash_table">
+        <tr>
+            <th>Total CA</th>
+            <th>Total impayee</th>
+        </tr>
+        <tr>
+            <td>{{ total_CA }}€</td>
+            <td>{{ total_impayee }}€</td>
+        </tr>
+    </table>
 
 
 {% endblock %}

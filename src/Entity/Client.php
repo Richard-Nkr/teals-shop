@@ -44,6 +44,12 @@ class Client
      */
     private $commandes;
 
+    /**
+     * @ORM\OneToOne(targetEntity=DeliverySlip::class, mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $deliverySlip;
+
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -129,6 +135,23 @@ class Client
                 $commande->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeliverySlip(): ?DeliverySlip
+    {
+        return $this->deliverySlip;
+    }
+
+    public function setDeliverySlip(DeliverySlip $deliverySlip): self
+    {
+        // set the owning side of the relation if necessary
+        if ($deliverySlip->getClient() !== $this) {
+            $deliverySlip->setClient($this);
+        }
+
+        $this->deliverySlip = $deliverySlip;
 
         return $this;
     }

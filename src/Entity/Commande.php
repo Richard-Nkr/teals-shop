@@ -70,6 +70,15 @@ class Commande
      */
     private $isPaid;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $toSend;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $sent;
 
     public function __construct()
     {
@@ -198,6 +207,30 @@ class Commande
     public function setIsPaid(?bool $isPaid): self
     {
         $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getToSend(): ?bool
+    {
+        return $this->toSend;
+    }
+
+    public function setToSend(?bool $toSend): self
+    {
+        $this->toSend = $toSend;
+
+        return $this;
+    }
+
+    public function getSent(): ?bool
+    {
+        return $this->sent;
+    }
+
+    public function setSent(?bool $sent): self
+    {
+        $this->sent = $sent;
 
         return $this;
     }

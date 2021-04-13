@@ -8,9 +8,12 @@ use App\Form\CommandeType;
 use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
 use App\Repository\CommandeRepository;
+use App\Repository\DeliverySlipRepository;
 use App\Repository\LiveRepository;
 use App\Service\CommandeCreation;
+use App\Service\CommandSent;
 use App\Service\isCommandPaid;
+use App\Service\isToSend;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,22 +92,59 @@ class CommandeController extends AbstractController
     }
 
     /**
-     * @Route("/{client}/{live}", name="commande_is_paid", methods={"GET"})
+     * @Route("/paid/{client}/{live}", name="commande_is_paid", methods={"GET"})
      * @param CommandeRepository $commandeRepository
-     * @param ArticleRepository $articleRepository
      * @param LiveRepository $liveRepository
      * @param isCommandPaid $commandPaid
      * @param int $client
      * @param int $live
      * @return Response
      */
-    public function isPaid(CommandeRepository $commandeRepository, ArticleRepository $articleRepository, LiveRepository $liveRepository, isCommandPaid $commandPaid, int $client, int $live): Response
+    public function isPaid(CommandeRepository $commandeRepository, LiveRepository $liveRepository, isCommandPaid $commandPaid, int $client, int $live): Response
     {
 
-        $commandPaid->isPaid($live,$client);
+        $commandPaid->isPaid($live, $client);
         return $this->render('recap/show_clients.twig', [
             'clients' => $commandeRepository->findAllCommandsByLive($live, $liveRepository),
             'live' => $liveRepository->findOneById($live),
+        ]);
+    }
+
+    /**
+     * @Route("/to/send/{client}/{live}", name="command_to_send", methods={"GET"})
+     * @param CommandeRepository $commandeRepository
+     * @param LiveRepository $liveRepository
+     * @param isToSend $toSend
+     * @param int $client
+     * @param int $live
+     * @return Response
+     */
+    public function toSend(CommandeRepository $commandeRepository, LiveRepository $liveRepository, isToSend $toSend, int $client, int $live): Response
+    {
+
+        $toSend->isToSend($live, $client);
+        return $this->render('recap/show_clients.twig', [
+            'clients' => $commandeRepository->findAllCommandsByLive($live, $liveRepository),
+            'live' => $liveRepository->findOneById($live),
+        ]);
+    }
+
+    /**
+     * @Route("/is/sent/{client}/{live}", name="command_is_sent", methods={"GET"})
+     * @param DeliverySlipRepository $deliverySlipRepository
+     * @param CommandeRepository $commandeRepository
+     * @param LiveRepository $liveRepository
+     * @param CommandSent $commandSent
+     * @param int $client
+     * @param int $live
+     * @return Response
+     */
+    public function isSent(DeliverySlipRepository $deliverySlipRepository, CommandeRepository $commandeRepository, LiveRepository $liveRepository, CommandSent $commandSent, int $client, int $live): Response
+    {
+        $commandSent->isSent($live, $client);
+        return $this->render('delivery_slip/index.html.twig', [
+            'commandes' => $commandeRepository->findAll(),
+            'delivery_slips' => $deliverySlipRepository->findAll(),
         ]);
     }
 
@@ -141,10 +181,13 @@ class CommandeController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $commande->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $id = $commande->getLive()->getId();
             $entityManager->remove($commande);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('live_index');
+        return $this->redirect($this->generateUrl('commande_new', [
+            'id' => $id,
+        ]));
     }
 }

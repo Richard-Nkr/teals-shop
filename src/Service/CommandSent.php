@@ -7,7 +7,7 @@ use App\Repository\CommandeRepository;
 use App\Repository\LiveRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class isCommandPaid
+class CommandSent
 {
 
     private LiveRepository $liveRepository;
@@ -24,14 +24,14 @@ class isCommandPaid
         $this->em = $em;
     }
 
-    public function isPaid(int $id_live, int $id_client): void
+    public function isSent(int $id_live, int $id_client): void
     {
         $live = $this->liveRepository->findOneById($id_live);
         $client = $this->clientRepository->findOneById($id_client);
         $commandes = $this->commandeRepository->findAllCommandsByClients($id_client,$this->clientRepository);
         foreach($commandes as $commande){
             if($commande->getCLient() == $client and  $commande->getLive() == $live)
-                $commande->setIsPaid(true);
+                $commande->setSent(true);
                 $this->em->persist($commande);
             }
         $this->em->flush();

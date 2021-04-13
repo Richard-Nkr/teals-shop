@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DeliverySlip index{% endblock %}
+
+{% block body %}
+    <h1>DeliverySlip index</h1>
+    {% set newArray = [] %}
+    {% set clients = [] %}
+
+    <table>
+        <tr>
+            <th>A envoyer</th>
+            <th>Bouton</th>
+        </tr>
+        <td>
+            <ul>
+                {% for commande in commandes %}
+                    {% for delivery_slip in delivery_slips %}
+                        {% if commande.toSend == true and commande.sent != true %}
+                            {% if commande.client.nickname not in newArray %}
+                                {% if commande.client.deliveryslip != null %}
+                                    <li>;;{{ commande.client.name }} {{ commande.client.firstname }}
+                                        ;;{{ commande.client.deliveryslip.adressRelai }}
+                                        ;;{{ commande.client.deliveryslip.ville }}
+                                        ;{{ commande.client.deliveryslip.codePostal }}
+                                        ;{{ commande.client.deliveryslip.paysISO }};{{ commande.client.phone }}
+                                        ;;;R;;;R;68063;{{ commande.client.deliveryslip.paysISO }}
+                                        ;24R;;1;{{ commande.client.deliveryslip.poids }};;;;;;;;;;;;;;;;;;;;;;
+                                    </li>
+                                    {% set newArray = newArray|merge([commande.client.nickname]) %}
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </td>
+        <td>
+            <ul>
+
+                {% for commande in commandes %}
+                    {% for delivery_slip in delivery_slips %}
+                        {% if commande.toSend == true and commande.sent != true %}
+                            {% if commande.client.id not in clients %}
+                                <li>
+                                    <a href="{{ path('command_is_sent', {'client' : commande.client.id, 'live' : commande.live.id}) }}">
+                                        <button class="btnG3">Envoi fait</button>
+                                    </a>
+                                </li>
+                                {% set clients = clients|merge([commande.client.id]) %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </td>
+        </tr>
+
+    </table>
+
+{% endblock %}

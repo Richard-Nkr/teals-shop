@@ -4,35 +4,66 @@
 
 {% block body %}
     <br><br>
-    <h1>Recap Clients</h1>
-
-    <table class="form_table3bis">
-        <thead>
-        <tr>
-            <th>Id Client</th>
-            <th>Client</th>
-            <th>Action</th>
-            <th>Payé</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for commande in clients %}
+    <h1 style="margin-right: 50%">Payé </h1>
+    <h1 style="margin-left: 20%">Non Payé</h1>
+    <div class="tableaux">
+        <table class="form_table3bis" style="margin-right: 50%">
+            <thead>
             <tr>
-                <td>{{ commande.client.id }}</td>
-                <td>{{ commande.client.nickname }}</td>
-                <td>
-                    <a href="{{ path('recap_show', {'client' : commande.client.id, 'live' : live.id}) }}">
-                        <button class="btnB2">Récap</button>
-                    </a>
-
-                    <a href="{{ path('commande_is_paid', {'client' : commande.client.id, 'live' : live.id}) }}">
-                        <button class="btnG3">Payé</button>
-                    </a>
-                </td>
-                {% if commande.isPaid != true %}
-                   <td>NON</td>
-                {% endif %}
+                <th>Id Client</th>
+                <th>Client</th>
+                <th>Action</th>
             </tr>
-        {% endfor %}
-    </table>
+            </thead>
+            <tbody>
+            {% for commande in clients %}
+                {% if commande.isPaid == true %}
+                    <tr>
+                    <td>{{ commande.client.id }}</td>
+                    <td>{{ commande.client.nickname }}</td>
+                    <td>
+                        <a href="{{ path('recap_show', {'client' : commande.client.id, 'live' : live.id}) }}">
+                            <button class="btnB2">Récap</button>
+                        </a>
+                        {%  if commande.toSend != true and commande.sent != true  %}
+                            <a href="{{ path('command_to_send', {'client' : commande.client.id, 'live' : live.id}) }}">
+                                <button class="btnG2">A envoyer</button>
+
+                            </a>
+                        {%  endif %}
+                    </td>
+                {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="tableaux">
+        <table class="form_table3bis">
+            <thead>
+            <tr>
+                <th>Id Client</th>
+                <th>Client</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for commande in clients %}
+                {% if commande.isPaid != true %}
+                    <tr>
+                    <td>{{ commande.client.id }}</td>
+                    <td>{{ commande.client.nickname }}</td>
+                    <td>
+                        <a href="{{ path('recap_show', {'client' : commande.client.id, 'live' : live.id}) }}">
+                            <button class="btnB2">Récap</button>
+                        </a>
+
+                        <a href="{{ path('commande_is_paid', {'client' : commande.client.id, 'live' : live.id}) }}">
+                            <button class="btnG3">Payé</button>
+                        </a>
+                    </td>
+                {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

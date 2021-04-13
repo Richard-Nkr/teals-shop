@@ -73,14 +73,19 @@ fieldset.form legend {
 .form_table2bis tr:nth-child(2n+1) {
     background-color: #949494;
 }
+
+.tableaux{
+    display:inline-block;
+    vertical-align:top;
+}
 .form_table3bis {
     vertical-align: center;
     float: right;
-    margin-right: 10%;
+    margin-right: 40%;
     margin-bottom: 10%;
     border-collapse: collapse;
     border-spacing: 0;
-    width: 30%;
+    width: 24%;
     border: 2px solid #dddddd;
 }
 .form_table3bis th, td {
